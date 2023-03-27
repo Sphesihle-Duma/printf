@@ -1,64 +1,92 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdlib.h>
-#include <stddef.h>
 
 /**
- * _printf - returns the number characters printed
- * @format: string to be printed
- * Return: number of characters printed
+ * _print_char - Prints a single character to stdout
+ * @c: Character to print
+ * Return: Number of characters printed
+ */
+int _print_char(char c)
+{
+	_putchar(c);
+	return (1);
+}
+
+/**
+ * _print_string - Prints a string of characters to stdout
+ * @str: String to print
+ * Return: Number of characters printed
+ */
+int _print_string(char *str)
+{
+	int i = 0;
+
+	while (str[i])
+	{
+		_putchar(str[i]);
+		i++;
+	}
+	return (i);
+}
+
+/**
+ * _print_percent - Prints a single percent sign to stdout
+ * Return: Number of characters printed
+ */
+int _print_percent(void)
+{
+	_putchar('%');
+	return (1);
+}
+/**
+ * _printf - Prints a formatted string of characters to stdout
+ * @format: String to print
+ * Return: Number of characters printed
  */
 int _printf(const char *format, ...)
 {
-        int num_of_characters = 0;
-        va_list arg_container;
-        char *str;
-        char c;
+	int num_of_chars = 0;
+	va_list arg_container;
+	char *str;
 
-        va_start(arg_container, format);
+	va_start(arg_container, format);
 	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
-		return (-1);
-        while (*format != '\0')
-        {
-                if (*format == '%')
-                {
-                        format++;
-                        switch (*format)
-                        {
-                                case '%':
-                                        _putchar(*format);
-                                        num_of_characters++;
-                                        break;
-                                case 'c':
-                                        c = va_arg(arg_container, int);
-                                        _putchar(c);
-                                        num_of_characters++;
-                                        break;
-                                case 's':
-                                        str = va_arg(arg_container, char *);
-                                        while (*str)
-                                        {
-                                                _putchar(*str++);
-                                                num_of_characters++;
-                                        }
-                                        break;
-                                default:
-                                        _putchar('%');
-                                        _putchar(*format);
-                                        num_of_characters+= 2;
-                                        break;
-                        }
-                }
-                else
-                {
-                        _putchar(*format);
-                        num_of_characters++;
-                }
-                format++;
-        }
-        va_end(arg_container);
-        return (num_of_characters);
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++;
+			switch (*format)
+			{
+				case '%':
+					num_of_chars += _print_percent();
+					break;
+				case 'c':
+					num_of_chars += _print_char(va_arg(arg_container, int));
+					break;
+				case 's':
+					str = va_arg(arg_container, char *);
+					if (!str)
+						str = "(null)";
+					num_of_chars += _print_string(str);
+					break;
+				default:
+					num_of_chars += _print_percent();
+					num_of_chars += _print_char(*format);
+					break;
+			}
+		}
+		else
+		{
+			num_of_chars += _print_char(*format);
+		}
+		format++;
+	}
+	va_end(arg_container);
+	return (num_of_chars);
 }
+
+
 
