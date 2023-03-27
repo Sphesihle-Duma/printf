@@ -11,7 +11,8 @@ int _printf(const char *format, ...)
 {
 	int num_of_characters = 0;
 	va_list arg_container;
-	char *str, char c;
+	char *str;
+	char c;
 
 	va_start(arg_container, format);
 	if (format == NULL)
