@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdlib.h>
+#include <stddef.h> 
 /**
   * _printf - returns the number characters printed
   * @format: string to be printed
@@ -10,10 +11,11 @@ int _printf(const char *format, ...)
 {
 	int num_of_characters = 0;
 	va_list arg_container;
-	char *str;
-	char c;
+	char *str, char c;
 
 	va_start(arg_container, format);
+	if (format == NULL)
+		return (-1);
 	while (*format != '\0' && format)
 	{
 		if (*format == '%')
@@ -37,8 +39,7 @@ int _printf(const char *format, ...)
 						_putchar(*str);
 						num_of_characters++;
 						str++;
-					}
-					break;
+					}break;
 				default:
 					_putchar('%');
 					_putchar(*format);
@@ -50,8 +51,7 @@ int _printf(const char *format, ...)
 		{
 			_putchar(*format);
 			num_of_characters++;
-		}
-		format++;
+		}format++;
 	}
 	va_end(arg_container);
 	return (num_of_characters);
