@@ -4,7 +4,7 @@
 
 /**
  * _print_char - Prints a single character to stdout
- * @c: Character to print
+ * @c: Character to print to stdout
  * Return: Number of characters printed
  */
 int _print_char(char c)
