@@ -18,14 +18,14 @@ int print_char(char c)
  */
 int print_string(char *str)
 {
-	int i = 0;
+	int j = 0;
 
-	while (str[i])
+	while (str[j])
 	{
-		_putchar(str[i]);
-		i++;
+		_putchar(str[j]);
+		j++;
 	}
-	return (i);
+	return (j);
 }
 /**
  * print_int - Prints an integer to stdout
