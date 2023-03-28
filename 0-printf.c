@@ -29,6 +29,31 @@ int _print_string(char *str)
 	}
 	return (i);
 }
+/**
+ * _print_int - Prints an integer to stdout
+ * @num: Integer to print
+ * Return: Number of characters printed
+ */
+int _print_int(int num)
+{
+	int digit, num_of_chars = 0;
+
+	if (num == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
+	if (num < 0)
+	{
+		num_of_chars += _print_char('-');
+		num *= -1;
+	}
+	if (num / 10)
+		num_of_chars += _print_int(num / 10);
+	digit = num % 10 + '0';
+	num_of_chars += _print_char(digit);
+	return (num_of_chars);
+}
 
 /**
  * _print_percent - Prints a single percent sign to stdout
@@ -68,9 +93,12 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					str = va_arg(arg_container, char *);
-					if (!str)
-						str = "(null)";
-					num_of_chars += _print_string(str);
+					if (str)
+						num_of_chars += _print_string(str);
+					break;
+				case 'd':
+				case 'i':
+					num_of_chars += _print_int(va_arg(arg_container, int));
 					break;
 				default:
 					num_of_chars += _print_percent();
