@@ -15,7 +15,7 @@ int _print_char(char c)
 
 /**
  * _print_string - Prints a string of characters to stdout
- * @str: String to print
+ * @str: string to print
  * Return: Number of characters printed
  */
 int _print_string(char *str)
